@@ -6,6 +6,12 @@
 <title>Island Adventure Services</title>
 
 <style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
 :root{
   --primary:#0a3d62;
   --secondary:#1e90ff;
@@ -76,7 +82,8 @@ nav ul li:hover::after{
 /* SECTIONS */
 section{
   display:none;
-  padding:70px 8%;
+  padding:70px 0;
+  width:100%;
   animation:fade .4s ease;
 }
 
@@ -84,11 +91,16 @@ section.active{
   display:block;
 }
 
-@keyframes fade{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:none}
+@keyframes fade {
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
-
 /* TITLES */
 .title{
   text-align:center;
@@ -204,9 +216,7 @@ footer{
   color:#777;
   cursor:default;
   font-weight:400;
-}
-
-/* BACK BUTTON */
+}/* BACK BUTTON */
 .back-btn{
   display:inline-flex;
   align-items:center;
@@ -229,20 +239,7 @@ footer{
   gap:12px;
   z-index:9999;
 }
-
-.floating-buttons a{
-  width:55px;
-  height:55px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  color:#fff;
-  font-size:26px;
-  text-decoration:none;
-  box-shadow:0 6px 18px rgba(0,0,0,.3);
-}
-
+.floating-buttons a{ width:55px; height:55px; display:flex; align-items:center; justify-content:center; border-radius:50%; color:#fff; font-size:26px; text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,.3); }
 .call-btn{background:#0a3d62}
 .whatsapp-btn{background:#25D366}
 
@@ -270,11 +267,95 @@ footer{
   border-radius:10px;
   box-shadow:0 6px 15px rgba(0,0,0,0.3);
 }
+.offer-badge{
+  position:absolute;
+  top:15px;
+  left:15px;
+  background:red;
+  color:#fff;
+  padding:5px 10px;
+  font-size:12px;
+  border-radius:5px;
+  font-weight:bold;
+}
+
+.card{
+  position:relative;
+}
+
+.old-price{
+  text-decoration:line-through;
+  color:#888;
+  margin-right:8px;
+}
+.timer{
+  color:#ff4757;
+  font-weight:bold;
+  margin:10px 0;
+}
+
+.slots{
+  color:#e67e22;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+.live-popup{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  background:#0a3d62;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:8px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.3);
+  font-size:14px;
+  display:none;
+  z-index:9999;
+  animation:fadeInOut 5s ease-in-out;
+}
+
+@keyframes fadeInOut{
+  0%{opacity:0;transform:translateY(20px);}
+  10%{opacity:1;transform:translateY(0);}
+  90%{opacity:1;}
+  100%{opacity:0;transform:translateY(20px);}
+}
+#reviews{
+  padding:50px 20px;
+  text-align:center;
+}
+
+.review-card{
+  background:#fff;
+  padding:15px;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.review-stars{
+  color:gold;
+  margin-bottom:10px;
+}
+nav a.active{
+  color:#ffd32a;
+  border-bottom:2px solid #ffd32a;
+}
+section{
+  transition: all 0.4s ease;
+}
+html{
+  scroll-behavior:smooth;
+}
+button{
+  transition:0.3s;
+}
+
+button:active{
+  transform:scale(0.95);
+}
 </style>
 </head>
-
 <body>
-
 <nav>
 <h2>Island Adventure</h2>
 <ul>
@@ -501,16 +582,35 @@ footer{
       </p>
     </div>
 
-    <div class="card">
-      <h3>⭐ Top Rated</h3>
-      <p>
-        Rated 4.9★ by travelers for quality service, friendly guides,
-        and unforgettable experiences.
-      </p>
-    </div>
+  <div class="title">
+    <h2>⭐ Customer Reviews</h2>
+    <p>What our customers say</p>
   </div>
 
+  <div id="reviewList" class="grid"></div>
 
+  <!-- Add Review Form -->
+  <div class="card" style="max-width:400px;margin:30px auto">
+
+    <h3>Add Your Review</h3>
+
+    <input type="text" id="reviewName" placeholder="Your Name" style="width:100%;padding:10px;margin:10px 0">
+
+    <select id="reviewRating" style="width:100%;padding:10px;margin:10px 0">
+      <option value="5">⭐⭐⭐⭐⭐</option>
+      <option value="4">⭐⭐⭐⭐</option>
+      <option value="3">⭐⭐⭐</option>
+      <option value="2">⭐⭐</option>
+      <option value="1">⭐</option>
+    </select>
+
+    <textarea id="reviewText" placeholder="Write your review"
+      style="width:100%;padding:10px;margin:10px 0"></textarea>
+
+    <button onclick="addReview()">Submit Review</button>
+
+  </div>
+  
 </section>
 <section id="gallery">
   <div class="title">
@@ -602,9 +702,21 @@ footer{
            alt="Scuba Diving"
            style="width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:15px">
       <h3>Scuba Diving</h3>
-      <p>Explore coral reefs & marine life</p>
+      <p>Explore coral reefs & marine life in Havelock</p>
       <button onclick="showSection('scuba')">View Details</button>
     </div>
+    
+<!-- Snorkeling -->
+<div class="card">
+  <img src="https://andyoucreations.com/wp-content/uploads/2017/10/DAY-water-71-1536x1024.jpg"
+       alt="Snorkeling"
+       style="width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:15px">
+
+  <h3>Snorkeling</h3>
+  <p>Explore coral reefs and colorful marine life near the surface</p>
+
+  <button onclick="showSection('snorkeling')">View Details</button>
+</div>
 
     <!-- Kayaking -->
     <div class="card">
@@ -615,6 +727,30 @@ footer{
       <p>Day, sunset & night kayaking experiences</p>
       <button onclick="showSection('kayaking')">View Details</button>
     </div>
+    
+  <div class="card">
+
+  <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21"
+       style="width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:15px">
+
+  <h3>Other Services</h3>
+  <p>Explore special experiences like candle light dinner, cruise and more</p>
+
+  <button onclick="showSection('otherServices')">View Details</button>
+
+</div>
+
+<div class="card">
+
+  <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
+       style="width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:15px">
+
+  <h3>⭐ Star Gazing</h3>
+  <p>Enjoy a magical night under the stars with a peaceful beach atmosphere</p>
+
+  <button onclick="showSection('starGazing')">View Details</button>
+
+</div>
 
     <!-- Elephant Beach -->
     <div class="card">
@@ -625,83 +761,16 @@ footer{
       <p>Jet ski, parasailing & water adventures</p>
       <button onclick="showSection('elephant-beach')">View All Activities</button>
     </div>
-    <!-- Candle Light Dinner -->
-<div class="card">
-  <img src="https://travools.com/images/trip/1639996627_61c05cd344434_banner.jpg"
-       alt="Candle Light Dinner"
+    <div class="card">
+
+  <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
        style="width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:15px">
 
-  <h3>🌹 Candle Light Dinner</h3>
+  <h3>💑 Couple Special Package</h3>
+  <p>Enjoy a romantic adventure with scuba diving and kayaking together</p>
 
-  <p>
-    Enjoy a romantic candle light dinner by the beach with beautiful décor,
-    private seating, and a customized menu. Perfect for couples, anniversaries,
-    birthdays, and proposals.
-  </p>
+  <button onclick="showSection('couplePackage')">View Details</button>
 
-  <ul style="margin:10px 0 15px 20px;line-height:1.6">
-    <li>Private beach-side setup</li>
-    <li>Decorated table with candles & flowers</li>
-    <li>Veg & Non-veg options available</li>
-    <li>Ideal for couples & special occasions</li>
-  </ul>
-
-  <p class="price">₹2000 – ₹5000 (depending on setup)</p>
-
-  <button onclick="bookNow('Candle Light Dinner', 3000)">
-    Book Now
-  </button>
-</div>
-
-<!-- Dinner Cruise -->
-<div class="card">
-  <img src="https://www.andamanocean.in/wp-content/uploads/2023/07/dinner-cruise-andaman-1024x577.jpeg.webp"
-       alt="Dinner Cruise"
-       style="width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:15px">
-
-  <h3>🚢 Dinner Cruise</h3>
-
-  <p>
-    Experience a luxurious dinner cruise with live music, sea breeze,
-    and night views of the ocean. A perfect blend of dining and entertainment.
-  </p>
-
-  <ul style="margin:10px 0 15px 20px;line-height:1.6">
-    <li>2–3 hour cruise experience</li>
-    <li>Buffet dinner (Veg & Non-veg)</li>
-    <li>Live music / DJ</li>
-    <li>Romantic & family-friendly</li>
-  </ul>
-
-  <p class="price">₹3500 – ₹4500 / person</p>
-
-  <button onclick="bookNow('Dinner Cruise', 4000)">
-    Book Now
-  </button>
-</div>
-<!-- Elephant Beach Boat Ticket -->
-<div class="card">
-  <img src="https://cdn.experienceandamans.com/images/ferry-from-havelock-to-elephant-beach-havelock.jpg"
-       style="width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:15px">
-
-  <h3>Elephant Beach Boat Ticket</h3>
-
-  <p>
-    Speed boat transfer to Elephant Beach from Havelock.
-    Includes return boat, life jacket, and crew assistance.
-  </p>
-
-  <ul style="margin:10px 0 15px 20px">
-    <li>Speed boat (up & down)</li>
-    <li>Life jacket included</li>
-    <li>Government-approved boats</li>
-  </ul>
-
-  <p class="price">Starting from ₹1200 / person</p>
-
-  <button onclick="bookElephantBoat()">
-    Book Boat Ticket
-  </button>
 </div>
 
   </div>
@@ -780,6 +849,7 @@ footer{
     </div>
 
   </div>
+
 
   <!-- Recommendation -->
   <div class="card" style="margin-top:40px;background:#eef6ff">
@@ -900,6 +970,301 @@ footer{
     </p>
   </div>
 </section>
+
+<section id="snorkeling">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <span onclick="showSection('home')">Home</span> /
+    <span onclick="showSection('services')">Services</span> /
+    <span class="current">Snorkeling</span>
+  </div>
+
+  <!-- Back Button -->
+  <div class="back-btn" onclick="goBack()">
+    ← Back to Services
+  </div>
+
+  <!-- Title -->
+  <div class="title">
+    <h2>Snorkeling Experiences</h2>
+    <p>Choose the snorkeling type that suits you</p>
+  </div>
+
+  <!-- Info Card -->
+  <div class="card" style="margin-bottom:40px;background:#f9fbff">
+    <h3>Boat vs Shore Snorkeling – What’s the Difference?</h3>
+    <p style="margin-top:10px;line-height:1.7">
+      Snorkeling is one of the best ways to explore marine life in Andaman.
+      You can either go from the shore or take a boat to deeper reefs.
+    </p>
+  </div>
+
+  <div class="grid">
+
+    <!-- Boat Snorkeling -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5"
+           style="width:100%;height:200px;object-fit:cover;border-radius:10px;margin-bottom:15px">
+
+      <h3>🚤 Boat Snorkeling</h3>
+      <p>
+        Travel by boat to deeper coral reef areas with better visibility and
+        more marine life. Best for a premium experience.
+      </p>
+
+      <ul style="margin:10px 0 15px 20px">
+        <li>Deep sea coral reefs</li>
+        <li>More fish & marine life</li>
+        <li>Better visibility</li>
+        <li>Guide assistance included</li>
+      </ul>
+
+      <p class="price">₹<span id="p_snorkelBoat"></span> / person</p>
+
+      <button onclick="openBookingForm('Boat Snorkeling', prices.snorkelBoat)">
+        Book Boat Snorkeling
+      </button>
+    </div>
+
+    <!-- Shore Snorkeling -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19"
+           style="width:100%;height:200px;object-fit:cover;border-radius:10px;margin-bottom:15px">
+
+      <h3>🏖️ Shore Snorkeling</h3>
+      <p>
+        Snorkeling near the beach in shallow water. Perfect for beginners
+        and non-swimmers.
+      </p>
+
+      <ul style="margin:10px 0 15px 20px">
+        <li>Shallow & safe</li>
+        <li>No swimming required</li>
+        <li>Beginner friendly</li>
+        <li>Quick & easy experience</li>
+      </ul>
+
+      <p class="price">₹<span id="p_snorkelShore"></span> / person</p>
+
+      <button onclick="openBookingForm('Shore Snorkeling', prices.snorkelShore)">
+        Book Shore Snorkeling
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Recommendation -->
+  <div class="card" style="margin-top:40px;background:#eef6ff">
+    <h3>💡 Our Recommendation</h3>
+    <p style="line-height:1.7">
+      👉 <strong>Beginners:</strong> Shore Snorkeling<br>
+      👉 <strong>Best experience:</strong> Boat Snorkeling<br><br>
+      Need help? Contact us on WhatsApp 😊
+    </p>
+  </div>
+
+</section>
+<section id="couplePackage">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <span onclick="showSection('home')">Home</span> /
+    <span onclick="showSection('services')">Services</span> /
+    <span class="current">Couple Package</span>
+  </div>
+
+  <!-- Back Button -->
+  <div class="back-btn" onclick="goBack()">
+    ← Back to Services
+  </div>
+
+  <!-- Title -->
+  <div class="title">
+    <h2>💑 Special Package for Couple</h2>
+    <p>Make your trip memorable with this romantic adventure combo</p>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+
+      <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5"
+           style="width:100%;height:220px;object-fit:cover;border-radius:10px;margin-bottom:15px">
+
+      <h3>🌊 Scuba Diving + 🚣 Kayaking</h3>
+
+      <p>Experience underwater beauty with scuba diving and enjoy peaceful kayaking together.</p>
+
+      <ul style="margin:10px 0 15px 20px">
+        <li>Scuba diving with instructor</li>
+        <li>Kayaking in clear waters</li>
+        <li>Perfect for couples</li>
+        <li>Photo opportunities</li>
+      </ul>
+
+    <p class="price">
+  <span class="old-price">₹<span id="old_couple"></span></span>
+  ₹<span id="p_couple"></span> / couple
+</p>
+
+<div class="offer-badge">20% OFF</div>
+<p class="timer">
+⏳ Offer ends in: <span id="countdown"></span>
+</p>
+
+<p class="slots">
+🔥 Only <span id="slotsLeft"></span> slots left!
+</p>
+
+<button onclick="openBookingForm('Couple Package (Scuba + Kayaking)', prices.couple)">
+Book Now
+</button>
+    </div>
+
+  </div>
+
+</section>
+
+<section id="starGazing">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <span onclick="showSection('home')">Home</span> /
+    <span onclick="showSection('services')">Services</span> /
+    <span class="current">Star Gazing</span>
+  </div>
+
+  <!-- Back Button -->
+  <div class="back-btn" onclick="goBack()">
+    ← Back to Services
+  </div>
+
+  <!-- Title -->
+  <div class="title">
+    <h2>⭐ Star Gazing Experience</h2>
+    <p>Relax under the night sky and enjoy a peaceful stargazing experience</p>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+
+      <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3"
+           style="width:100%;height:220px;object-fit:cover;border-radius:10px;margin-bottom:15px">
+
+      <h3>🌌 Beach Star Gazing</h3>
+
+      <p>Experience the beauty of the night sky with clear stars, cool breeze and relaxing vibes.</p>
+
+      <ul style="margin:10px 0 15px 20px">
+        <li>Clear night sky view</li>
+        <li>Perfect for couples & groups</li>
+        <li>Peaceful beach environment</li>
+        <li>Best time: 7 PM – 11 PM</li>
+      </ul>
+
+      <p class="price">₹<span id="p_star"></span> / person</p>
+
+      <button onclick="openBookingForm('Star Gazing', prices.star)">
+        Book Now
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section id="otherServices">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <span onclick="showSection('home')">Home</span> /
+    <span onclick="showSection('services')">Services</span> /
+    <span class="current">Other Services</span>
+  </div>
+
+  <!-- Back Button -->
+  <div class="back-btn" onclick="goBack()">
+    ← Back to Services
+  </div>
+
+  <!-- Title -->
+  <div class="title">
+    <h2>Other Experiences</h2>
+    <p>Make your trip more special with premium experiences</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- Candle Light Dinner -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1519741497674-611481863552"
+           style="width:100%;height:200px;object-fit:cover;border-radius:10px;margin-bottom:15px">
+
+      <h3>🕯️ Candle Light Dinner</h3>
+      <p>Romantic beachside dinner setup with candles and decoration.</p>
+
+      <ul style="margin:10px 0 15px 20px">
+        <li>Private setup</li>
+        <li>Decoration included</li>
+        <li>Perfect for couples</li>
+      </ul>
+
+      <p class="price">₹<span id="p_candle"></span></p>
+
+      <button onclick="openBookingForm('Candle Light Dinner', prices.candle)">
+        Book Now
+      </button>
+    </div>
+
+    <!-- Dinner Cruise -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836"
+           style="width:100%;height:200px;object-fit:cover;border-radius:10px;margin-bottom:15px">
+
+      <h3>🚢 Dinner Cruise</h3>
+      <p>Enjoy dinner on a cruise with music and sea view.</p>
+
+      <ul style="margin:10px 0 15px 20px">
+        <li>Live music</li>
+        <li>Buffet dinner</li>
+        <li>Ocean view</li>
+      </ul>
+
+      <p class="price">₹<span id="p_cruise"></span> / person</p>
+
+      <button onclick="openBookingForm('Dinner Cruise', prices.cruise)">
+        Book Now
+      </button>
+    </div>
+
+    <!-- Elephant Beach Boat -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+           style="width:100%;height:200px;object-fit:cover;border-radius:10px;margin-bottom:15px">
+
+      <h3>🏝️ Elephant Beach Boat Ticket</h3>
+      <p>Boat ride to Elephant Beach for water activities.</p>
+
+      <ul style="margin:10px 0 15px 20px">
+        <li>Round trip boat</li>
+        <li>Beautiful island views</li>
+        <li>Adventure destination</li>
+      </ul>
+
+      <p class="price">₹<span id="p_elephantBoat"></span> / person</p>
+
+      <button onclick="openBookingForm('Elephant Beach Boat', prices.elephantBoat)">
+        Book Now
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
 <section id="elephant-beach">
   <div class="breadcrumb">
   <span onclick="showSection('home')">Home</span> /
@@ -1104,6 +1469,7 @@ footer{
 
   </div>
 
+
   <!-- Recommendation -->
   <div class="card" style="margin-top:40px;background:#eef6ff">
     <h3>💡 Not Sure What to Choose?</h3>
@@ -1128,7 +1494,7 @@ footer{
     <p id="payAmount" style="font-size:1.2rem;font-weight:600"></p>
 
     <img
-      src="GooglePay_QR.png"
+      src="/images/GooglePay_QR.png"
       alt="UPI QR"
       style="width:260px;margin:20px auto;border-radius:12px"
     >
@@ -1346,27 +1712,42 @@ const prices = {
   banana: 500,
   sofa: 700,
   semisub: 2500,
-  scooter: 4000
+  scooter: 4000,
+  snorkelBoat: 2000,
+snorkelShore: 1000,
+candle: 4999,
+cruise: 3500,
+elephantBoat: 1200,
+star: 1999,
+coupleOriginal: 9000,
+couple: 7200, // after 20% discount
 };
 
 /* ================= SECTION NAVIGATION ================= */
 let sectionHistory = ["home"];
 
-function showSection(id) {
-  document.querySelectorAll("section").forEach(s =>
-    s.classList.remove("active")
-  );
+function showSection(id){
 
-  const target = document.getElementById(id);
-  if (!target) return;
+  document.querySelectorAll("section").forEach(sec=>{
+    sec.style.display = "none";
+  });
 
-  target.classList.add("active");
+  const activeSection = document.getElementById(id);
+  activeSection.style.display = "block";
 
-  if (sectionHistory[sectionHistory.length - 1] !== id) {
-    sectionHistory.push(id);
-  }
+  // Smooth scroll to top
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  // Active nav highlight
+  document.querySelectorAll("nav a").forEach(link=>{
+    link.classList.remove("active");
+  });
+
+  const activeLink = document.querySelector(`nav a[onclick="showSection('${id}')"]`);
+  if(activeLink) activeLink.classList.add("active");
 }
 
 function goBack() {
@@ -1406,6 +1787,12 @@ Amount: ₹${amount}`;
   document.getElementById("payService").innerText = service;
   document.getElementById("payAmount").innerText =
     "Payable Amount: ₹" + amount;
+    document.getElementById('p_candle').innerText = prices.candle;
+document.getElementById('p_cruise').innerText = prices.cruise;
+document.getElementById('p_elephantBoat').innerText = prices.elephantBoat;
+document.getElementById('p_star').innerText = prices.star;
+document.getElementById('old_couple').innerText = prices.coupleOriginal;
+document.getElementById('p_couple').innerText = prices.couple;
 
   // Generate UPI link
   const upiURL =
@@ -1491,11 +1878,6 @@ function openCabBooking() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function goBack() {
-  document.getElementById('cabBooking').style.display = 'none';
-  document.getElementById('services').style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
 /* ================= ELEPHANT BEACH BOAT ================= */
 function bookElephantBoat() {
   const msg =
@@ -1526,6 +1908,123 @@ Message: ${message}`;
     "_blank"
   );
 }
+// Countdown (2 hours from page load)
+let timeLeft = 2 * 60 * 60;
+
+function updateTimer(){
+  let hours = Math.floor(timeLeft / 3600);
+  let minutes = Math.floor((timeLeft % 3600) / 60);
+  let seconds = timeLeft % 60;
+
+  document.getElementById("countdown").innerText =
+    `${hours}h ${minutes}m ${seconds}s`;
+
+  if(timeLeft > 0){
+    timeLeft--;
+  }
+}
+
+setInterval(updateTimer, 1000);
+let slots = 5; // change as needed
+
+function updateSlots(){
+  document.getElementById("slotsLeft").innerText = slots;
+}
+
+updateSlots();
+const names = ["Rahul", "Amit", "Priya", "Sneha", "Rohit", "Anjali"];
+const places = ["Delhi", "Mumbai", "Bangalore", "Kolkata", "Chennai"];
+const services = [
+  "Scuba Diving",
+  "Kayaking",
+  "Snorkeling",
+  "Star Gazing",
+  "Couple Package",
+  "Candle Light Dinner"
+];
+
+function showLivePopup(){
+
+  const name = names[Math.floor(Math.random()*names.length)];
+  const place = places[Math.floor(Math.random()*places.length)];
+  const service = services[Math.floor(Math.random()*services.length)];
+
+  const text = `${name} from ${place} just booked ${service}`;
+
+  const popup = document.getElementById("livePopup");
+  const popupText = document.getElementById("liveText");
+
+  popupText.innerText = text;
+  popup.style.display = "block";
+
+  setTimeout(()=>{
+    popup.style.display = "none";
+  }, 5000);
+}
+
+// Show every 10–20 seconds randomly
+setInterval(showLivePopup, Math.random()*10000 + 10000);
+let reviews = [
+  {
+    name: "Rahul",
+    rating: 5,
+    text: "Amazing experience! Scuba diving was शानदार!"
+  },
+  {
+    name: "Priya",
+    rating: 4,
+    text: "Loved the kayaking and beach vibe ❤️"
+  }
+];
+
+// Show reviews
+function displayReviews(){
+
+  const list = document.getElementById("reviewList");
+  if(!list) return;
+
+  list.innerHTML = "";
+
+  reviews.forEach(r => {
+
+    let stars = "⭐".repeat(r.rating);
+
+    list.innerHTML += `
+      <div class="review-card">
+        <h4>${r.name}</h4>
+        <div class="review-stars">${stars}</div>
+        <p>${r.text}</p>
+      </div>
+    `;
+  });
+}
+
+// Add new review
+function addReview(){
+
+  const name = document.getElementById("reviewName").value;
+  const rating = document.getElementById("reviewRating").value;
+  const text = document.getElementById("reviewText").value;
+
+  if(!name || !text){
+    alert("Please fill all fields");
+    return;
+  }
+
+  reviews.unshift({
+    name,
+    rating: Number(rating),
+    text
+  });
+
+  displayReviews();
+
+  document.getElementById("reviewName").value = "";
+  document.getElementById("reviewText").value = "";
+}
+
+// Load reviews
+displayReviews();
 </script>
 <script>
 let bfService = "";
@@ -1562,6 +2061,10 @@ function submitBooking(){
   if(!name || !phone){
     alert("Please fill all details");
     return;
+  if(slots > 0){
+  slots--;
+  updateSlots();
+}
   }
 
   customerName = name;
@@ -1604,6 +2107,7 @@ Total Amount: ₹${total}`;
 
   showSection("payment");
 }
+
 </script>
 <div class="floating-buttons">
   <a href="tel:8900982750" class="call-btn">📞</a>
@@ -1674,10 +2178,6 @@ Total Amount: ₹${total}`;
     </div>
 
   </div>
-
-  <button onclick="goBack()" style="margin-top:30px">
-    ⬅ Back to Services
-  </button>
 
 </section>
 <!-- Booking Form Modal -->
@@ -1774,6 +2274,9 @@ z-index:9999;
       Cancel
     </button>
   </div>
+</div>
+<div id="livePopup" class="live-popup">
+  <p id="liveText">Someone just booked Scuba Diving</p>
 </div>
 </body>
 </html>

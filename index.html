@@ -426,108 +426,65 @@ button:active{
   font-size: 12px;
   margin-left: 10px;
   }
-  /* SECTION */
-#gallery {
-  padding: 60px 20px;
-  background: linear-gradient(to bottom, #eaf6ff, #ffffff);
-  text-align: center;
+/* ACTIVITY GRID */
+#gallery{
+  padding:40px;
+  text-align:center;
 }
 
-#gallery h2 {
-  font-size: 32px;
-  color: #0a3d62;
-  margin-bottom: 30px;
+.activity-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
 }
 
-/* GRID */
-#galleryGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
-  gap: 20px;
+.activity-card{
+  cursor:pointer;
+  border-radius:15px;
+  overflow:hidden;
+  position:relative;
 }
 
-/* CARD */
-.card {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  cursor: pointer;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  transition: 0.4s;
-  background: #fff;
+.activity-card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
 }
 
-/* HOVER EFFECT */
-.card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-}
-
-/* IMAGE */
-.card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  transition: 0.4s;
-}
-
-.card:hover img {
-  transform: scale(1.1);
-}
-
-/* OVERLAY TEXT */
-.card p {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 12px;
-  margin: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
-  letter-spacing: 0.5px;
+.activity-card h3{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  background:rgba(0,0,0,0.6);
+  color:#fff;
+  padding:10px;
 }
 
 /* GALLERY VIEW */
-#galleryView {
-  padding: 40px 20px;
-  background: #ffffff;
+.gallery-view{
+  display:none;
+  padding:20px;
 }
 
-#galleryContainer {
-  column-count: 3;
-  column-gap: 15px;
+.gallery-container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:10px;
 }
 
-#galleryContainer img,
-#galleryContainer video {
-  width: 100%;
-  margin-bottom: 15px;
-  border-radius: 15px;
-  transition: 0.3s;
-}
-
-#galleryContainer img:hover {
-  transform: scale(1.05);
+.gallery-container img,
+.gallery-container video{
+  width:100%;
+  border-radius:10px;
 }
 
 /* BACK BUTTON */
-#backBtn {
-  padding: 10px 25px;
-  background: linear-gradient(45deg,#1E90FF,#00C6FF);
-  color: #fff;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  margin-bottom: 20px;
-}
-
-/* MOBILE */
-@media(max-width:768px){
-  #galleryContainer {
-    column-count: 2;
-  }
+.back-btn{
+  padding:10px 20px;
+  margin-bottom:20px;
+  background:#0a3d62;
+  color:#fff;
+  border:none;
   }
 </style>
 </head>
@@ -714,28 +671,34 @@ button:active{
   </div>
 
   </section>
-  
+  <!-- ACTIVITY GRID -->
 <section id="gallery">
-  <h2>📸 Our Activities</h2>
+<h2>🌊 Explore Activities</h2>
 
-  <div id="galleryGrid">
+<div class="activity-grid">
 
-    <div class="card" data-type="scuba">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyLxe4ko0KyRUjpFyomuAbJJ-k2ycXntdnDdZBFJx6n1qZVkX3B8zjECv-&s=10">
-      <p>Scuba Diving</p>
-    </div>
+<div class="activity-card" onclick="openGallery('scuba')">
+<img src="https://images.unsplash.com/photo-1582967788606-a171c1080cb0">
+<h3>Scuba Diving</h3>
+</div>
 
-    <div class="card" data-type="kayaking">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAM-HiwzzWl1VfjsEXFaCTR2WP2WwDMmbQ_eD3RFKGSXpA-fJ3G0DuSCsO&s=10">
-      <p>Kayaking</p>
-    </div>
+<div class="activity-card" onclick="openGallery('kayaking')">
+<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
+<h3>Kayaking</h3>
+</div>
 
-    <div class="card" data-type="parasailing">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfvqhNVoA43fCO2uqUtqecXSqPQCdWv0pGn0g20BOxoOiq5jf1LHKrFY4&s=10">
-      <p>Parasailing</p>
-    </div>
+<div class="activity-card" onclick="openGallery('parasailing')">
+<img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21">
+<h3>Parasailing</h3>
+</div>
 
-  </div>
+</div>
+</section>
+
+<!-- GALLERY VIEW -->
+<section class="gallery-view" id="gallerySection">
+<button class="back-btn" onclick="closeGallery()">⬅ Back</button>
+<div class="gallery-container" id="galleryContainer"></div>
 </section>
 
 <!-- OPENED GALLERY VIEW -->
@@ -2350,45 +2313,42 @@ z-index:9999;
   <p id="liveText">Someone just booked Scuba Diving</p>
 </div>
   <script>
-document.addEventListener("DOMContentLoaded", function(){
 
-  const galleries = {
-    scuba: ["boat-dive.jpg","scuba2.jpg"],
-    kayaking: ["kayaking.jpg"],
-    parasailing: ["parasailing.jpg"]
-  };
+/* DATA */
+const galleries = {
+  scuba: [
+    "https://images.unsplash.com/photo-1582967788606-a171c1080cb0",
+    "https://images.unsplash.com/photo-1544551763-46a013bb70d5"
+  ],
+  kayaking: [
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+  ],
+  parasailing: [
+    "https://images.unsplash.com/photo-1500375592092-40eb2168fd21"
+  ]
+};
 
-  const cards = document.querySelectorAll("#galleryGrid .card");
-  const mainGallery = document.getElementById("gallery");
-  const galleryView = document.getElementById("galleryView");
-  const container = document.getElementById("galleryContainer");
-  const backBtn = document.getElementById("backBtn");
+/* OPEN GALLERY */
+function openGallery(type){
+  document.getElementById("gallery").style.display="none";
+  document.getElementById("gallerySection").style.display="block";
 
-  cards.forEach(card=>{
-    card.addEventListener("click", function(){
+  let container = document.getElementById("galleryContainer");
+  container.innerHTML = "";
 
-      const type = this.getAttribute("data-type");
-      container.innerHTML = "";
-
-      galleries[type].forEach(item=>{
-        let img = document.createElement("img");
-        img.src = item;
-        img.style.width = "100%";
-        container.appendChild(img);
-      });
-
-      mainGallery.style.display = "none";
-      galleryView.style.display = "block";
-
-    });
+  galleries[type].forEach(item=>{
+    let img = document.createElement("img");
+    img.src = item;
+    container.appendChild(img);
   });
+}
 
-  backBtn.addEventListener("click", function(){
-    galleryView.style.display = "none";
-    mainGallery.style.display = "block";
-  });
+/* CLOSE */
+function closeGallery(){
+  document.getElementById("gallery").style.display="block";
+  document.getElementById("gallerySection").style.display="none";
+}
 
-});
-  </script>
+                          </script>
 </body>
 </html>

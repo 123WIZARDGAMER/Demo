@@ -426,80 +426,21 @@ button:active{
   font-size: 12px;
   margin-left: 10px;
   }
-  .gallery {
-  padding: 60px 20px;
-  text-align: center;
-  background: #ffffff;
-}
-
-.gallery-grid {
+  #galleryGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+  gap: 10px;
 }
 
-.gallery-card {
-  position: relative;
-  border-radius: 15px;
-  overflow: hidden;
-  cursor: pointer;
+.card img {
+  width:100%;
+  height:150px;
+  object-fit:cover;
 }
 
-.gallery-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  transition: 0.4s;
-}
-
-.gallery-card:hover img {
-  transform: scale(1.1);
-}
-
-.overlay {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  padding: 10px;
-}
-
-/* GALLERY VIEW */
-.gallery-view {
-  display: none;
-  padding: 40px 20px;
-}
-
-.gallery-container {
-  column-count: 3;
-  column-gap: 10px;
-}
-
-.gallery-container img,
-.gallery-container video {
-  width: 100%;
-  margin-bottom: 10px;
-  border-radius: 10px;
-}
-
-/* BACK BUTTON */
-.back-btn {
-  padding: 10px 20px;
-  margin-bottom: 20px;
-  background: #0a3d62;
-  color: #fff;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-}
-
-/* MOBILE */
-@media(max-width:768px){
-  .gallery-container {
-    column-count: 2;
-  }
-}
+#galleryContainer img {
+  margin-bottom:10px;
+                             }
 </style>
 </head>
 <body>
@@ -685,37 +626,35 @@ button:active{
   </div>
 
   </section>
-
   
-<section class="gallery" id="activitySection">
+<section id="gallery">
+  <h2>📸 Our Activities</h2>
 
-<h2 class="section-title">📸 Our Activities</h2>
+  <div id="galleryGrid">
 
-<div class="gallery-grid">
+    <div class="card" data-type="scuba">
+      <img src="boat-dive.jpg">
+      <p>Scuba Diving</p>
+    </div>
 
-  <div class="gallery-card" onclick="openGallery('scuba')">
-    <img src="boat-dive.jpg">
-    <div class="overlay">Scuba Diving</div>
+    <div class="card" data-type="kayaking">
+      <img src="kayaking.jpg">
+      <p>Kayaking</p>
+    </div>
+
+    <div class="card" data-type="parasailing">
+      <img src="parasailing.jpg">
+      <p>Parasailing</p>
+    </div>
+
   </div>
-
-  <div class="gallery-card" onclick="openGallery('kayaking')">
-    <img src="kayaking.jpg">
-    <div class="overlay">Kayaking</div>
-  </div>
-
-  <div class="gallery-card" onclick="openGallery('parasailing')">
-    <img src="parasailing.jpg">
-    <div class="overlay">Parasailing</div>
-  </div>
-
-  <div class="gallery-card" onclick="openGallery('jetski')">
-    <img src="jetski.jpg">
-    <div class="overlay">Jet Ski</div>
-  </div>
-
-</div>
 </section>
 
+<!-- OPENED GALLERY VIEW -->
+<section id="galleryView" style="display:none;">
+  <button id="backBtn">⬅ Back</button>
+  <div id="galleryContainer"></div>
+</section>
   
 <section id="services">
   <div class="title">
@@ -2323,53 +2262,45 @@ z-index:9999;
   <p id="liveText">Someone just booked Scuba Diving</p>
 </div>
   <script>
-const galleries = {
+document.addEventListener("DOMContentLoaded", function(){
 
-  scuba: [
-    "boat-dive.jpg",
-    "scuba2.jpg",
-    "scuba-video.mp4"
-  ],
+  const galleries = {
+    scuba: ["boat-dive.jpg","scuba2.jpg"],
+    kayaking: ["kayaking.jpg"],
+    parasailing: ["parasailing.jpg"]
+  };
 
-  kayaking: [
-    "kayaking.jpg"
-  ],
+  const cards = document.querySelectorAll("#galleryGrid .card");
+  const mainGallery = document.getElementById("gallery");
+  const galleryView = document.getElementById("galleryView");
+  const container = document.getElementById("galleryContainer");
+  const backBtn = document.getElementById("backBtn");
 
-  parasailing: [
-    "parasailing.jpg"
-  ],
+  cards.forEach(card=>{
+    card.addEventListener("click", function(){
 
-  jetski: [
-    "jetski.jpg"
-  ]
+      const type = this.getAttribute("data-type");
+      container.innerHTML = "";
 
-};
+      galleries[type].forEach(item=>{
+        let img = document.createElement("img");
+        img.src = item;
+        img.style.width = "100%";
+        container.appendChild(img);
+      });
 
-function openGallery(type){
-  document.getElementById("activitySection").style.display = "none";
-  document.getElementById("gallerySection").style.display = "block";
+      mainGallery.style.display = "none";
+      galleryView.style.display = "block";
 
-  let container = document.getElementById("galleryContainer");
-  container.innerHTML = "";
-
-  galleries[type].forEach(item=>{
-    if(item.endsWith(".mp4")){
-      let video = document.createElement("video");
-      video.src = item;
-      video.controls = true;
-      container.appendChild(video);
-    } else {
-      let img = document.createElement("img");
-      img.src = item;
-      container.appendChild(img);
-    }
+    });
   });
-}
 
-function closeGallery(){
-  document.getElementById("activitySection").style.display = "block";
-  document.getElementById("gallerySection").style.display = "none";
-}
+  backBtn.addEventListener("click", function(){
+    galleryView.style.display = "none";
+    mainGallery.style.display = "block";
+  });
+
+});
   </script>
 </body>
 </html>

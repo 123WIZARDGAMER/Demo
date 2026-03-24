@@ -426,6 +426,68 @@ button:active{
   font-size: 12px;
   margin-left: 10px;
   }
+  .activity-gallery{
+  padding:60px 20px;
+  text-align:center;
+}
+
+.activity-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+}
+
+.activity-card{
+  position:relative;
+  cursor:pointer;
+  border-radius:15px;
+  overflow:hidden;
+}
+
+.activity-card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  transition:0.4s;
+}
+
+.activity-card:hover img{
+  transform:scale(1.1);
+}
+
+.activity-card h3{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  background:rgba(0,0,0,0.6);
+  color:white;
+  padding:10px;
+}
+
+/* GALLERY VIEW */
+.gallery-view{
+  display:none;
+  padding:20px;
+}
+
+.gallery-container{
+  column-count:3;
+  column-gap:10px;
+}
+
+.gallery-container img,
+.gallery-container video{
+  width:100%;
+  margin-bottom:10px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+@media(max-width:768px){
+  .gallery-container{
+    column-count:2;
+  }
+}
 </style>
 </head>
 <body>
@@ -613,62 +675,41 @@ button:active{
   </section>
     
 <section id="gallery">
-  <div class="title">
-    <h2>Adventure Gallery</h2>
-    <p>Our popular activities & prices</p>
+  <section class="activity-gallery">
+
+<h2>🌊 Explore Activities</h2>
+
+<div class="activity-grid">
+
+  <div class="activity-card" onclick="openGallery('scuba')">
+    <img src="https://images.unsplash.com/photo-1582967788606-a171c1080cb0">
+    <h3>Scuba Diving</h3>
   </div>
 
-  <div class="grid">
-
-    <!-- Scuba Diving -->
-    <div class="card">
-      <img src="https://static2.tripoto.com/media/filter/tst/img/295383/TripDocument/1549820172_1549820170650.jpg"
-           style="width:100%;height:200px;object-fit:cover;border-radius:10px">
-      <h3>Scuba Diving</h3>
-      <p>Boat Dive / Shore Dive</p>
-    </div>
-
-    <!-- Kayaking -->
-    <div class="card">
-      <img src="https://www.havelockislandbeachresort.com/storage/water-sports-listing-page-hibr/night-kayaking.jpg"
-           style="width:100%;height:200px;object-fit:cover;border-radius:10px">
-      <h3>Kayaking</h3>
-      <p>Day • Sunset • Night</p>
-    </div>
-
-    <!-- Parasailing -->
-    <div class="card">
-      <img src="https://www.andamanislands.com/uploads/andamanislands/gallery/main/2983f9b9d64355a058c3cc179a1d3d2a_178.jpg"
-           style="width:100%;height:200px;object-fit:cover;border-radius:10px">
-      <h3>Parasailing</h3>
-      <p>Experience flying over the sea</p>
-    </div>
-
-    <!-- Jet Ski -->
-    <div class="card">
-      <img src="https://res.cloudinary.com/manawa/image/private/f_auto,c_limit,w_3840,q_auto/cfitu4v6t8wwh3xja46h"
-           style="width:100%;height:200px;object-fit:cover;border-radius:10px">
-      <h3>Jet Ski Ride</h3>
-      <p>High-speed water adventure</p>
-    </div>
-
-    <!-- Banana Ride -->
-    <div class="card">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPBoq8cVrFOae0CTsbbKRGHN1gpWcBgI3pUR68CdIY9tmevyFJHhMlyQXD&s=10"
-           style="width:100%;height:200px;object-fit:cover;border-radius:10px">
-      <h3>Banana Ride</h3>
-      <p>Fun group water ride</p>
-    </div>
-
-    <!-- Sea Walk -->
-    <div class="card">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTTY56lAH3A27ObNH7g80O7y3ZsIGzpXoS9UQcCKo0My6fVVdSYGHaKRww&s=10"
-           style="width:100%;height:200px;object-fit:cover;border-radius:10px">
-      <h3>Sea Walk</h3>
-      <p>Walk under the sea</p>
-    </div>
-
+  <div class="activity-card" onclick="openGallery('kayaking')">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
+    <h3>Kayaking</h3>
   </div>
+
+  <div class="activity-card" onclick="openGallery('parasailing')">
+    <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21">
+    <h3>Parasailing</h3>
+  </div>
+
+  <div class="activity-card" onclick="openGallery('jetski')">
+    <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206">
+    <h3>Jet Ski</h3>
+  </div>
+
+</div>
+</section>
+
+<!-- ACTIVITY GALLERY -->
+<section class="gallery-view" id="galleryView">
+  <button onclick="closeGallery()">⬅ Back</button>
+
+  <div class="gallery-container" id="galleryContainer"></div>
+</section>
 
 </section>
 
@@ -2107,6 +2148,55 @@ Total Amount: ₹${total}`;
 }
 
 </script>
+  <script>
+const galleries = {
+
+  scuba: [
+    "https://images.unsplash.com/photo-1582967788606-a171c1080cb0",
+    "https://images.unsplash.com/photo-1544551763-46a013bb70d5",
+    "video1.mp4"
+  ],
+
+  kayaking: [
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+  ],
+
+  parasailing: [
+    "https://images.unsplash.com/photo-1500375592092-40eb2168fd21"
+  ],
+
+  jetski: [
+    "https://images.unsplash.com/photo-1519046904884-53103b34b206"
+  ]
+
+};
+
+function openGallery(type){
+  document.querySelector(".activity-gallery").style.display="none";
+  document.getElementById("galleryView").style.display="block";
+
+  let container = document.getElementById("galleryContainer");
+  container.innerHTML="";
+
+  galleries[type].forEach(item=>{
+    if(item.endsWith(".mp4")){
+      let video = document.createElement("video");
+      video.src = item;
+      video.controls = true;
+      container.appendChild(video);
+    } else {
+      let img = document.createElement("img");
+      img.src = item;
+      container.appendChild(img);
+    }
+  });
+}
+
+function closeGallery(){
+  document.querySelector(".activity-gallery").style.display="block";
+  document.getElementById("galleryView").style.display="none";
+}
+  </script>
 <div class="floating-buttons">
   <a href="tel:8900982750" class="call-btn">📞</a>
   <a href="https://wa.me/918900982750" target="_blank" class="whatsapp-btn">💬</a>

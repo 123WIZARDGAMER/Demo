@@ -55,6 +55,102 @@ h1,h2{color:#0a3d62;}
 </head>
 
 <body>
+  <section id="scuba">
+  <div class="breadcrumb">
+  <span onclick="showSection('home')">Home</span> /
+  <span onclick="showSection('services')">Services</span> /
+  <span class="current">Scuba Diving</span>
+</div>
+
+<div class="back-btn" onclick="goBack()">
+  ← Back to Services
+</div>
+  <div class="title">
+    <h2>Scuba Diving Programs</h2>
+    <p>Choose the dive that suits you best</p>
+  </div>
+
+  <!-- Explanation -->
+  <div class="card" style="margin-bottom:40px;background:#f9fbff">
+    <h3>Boat Dive vs Shore Dive – What’s the Difference?</h3>
+    <p style="margin-top:10px;line-height:1.7">
+      If you are new to scuba diving, choosing between a <strong>Boat Dive</strong>
+      and a <strong>Shore Dive</strong> can be confusing. Here’s a simple explanation
+      to help you decide 👇
+    </p>
+  </div>
+
+  <div class="grid">
+
+    <!-- Boat Dive -->
+    <div class="card">
+      <img src="https://res.cloudinary.com/padi/image/upload/f_auto,q_75,w_auto,dpr_auto/v1749805264/CDN/commerce/60491-1B2C.webp"
+           style="width:100%;height:200px;object-fit:cover;border-radius:10px;margin-bottom:15px">
+
+      <h3>🚤 Boat Dive</h3>
+      <p style="line-height:1.6">
+        In a <strong>Boat Dive</strong>, you travel by boat to deeper diving locations
+        with rich coral reefs and colorful marine life. This dive offers better visibility
+        and a more adventurous experience.
+      </p>
+
+      <ul style="margin:10px 0 15px 20px;line-height:1.6">
+        <li>Deeper dive locations</li>
+        <li>More corals & fish variety</li>
+        <li>Best visibility</li>
+        <li>Ideal for adventure seekers</li>
+      </ul>
+
+      <p class="price">
+  Boat Dive – 
+  <span class="original-price">₹5500</span>
+  <span class="discount-price">₹4000</span>
+      <span class="badge">SAVE ₹1500</span>
+      </p>
+    <button onclick="openBookingForm('Scuba Boat Dive',prices.boat)">Book Boat Dive</button>
+    </div>
+
+    <!-- Shore Dive -->
+    <div class="card">
+      <img src="https://www.adventurush.com/wp-content/uploads/2023/06/Dive-into-Adventure-1-1024x427.jpg"
+           style="width:100%;height:200px;object-fit:cover;border-radius:10px;margin-bottom:15px">
+
+      <h3>🏖️ Shore Dive</h3>
+      <p style="line-height:1.6">
+        In a <strong>Shore Dive</strong>, you enter the water directly from the beach.
+        It is done in shallow water and is perfect for first-time divers who want a
+        relaxed and comfortable experience.
+      </p>
+
+      <ul style="margin:10px 0 15px 20px;line-height:1.6">
+        <li>Shallow & calm waters</li>
+        <li>Perfect for beginners</li>
+        <li>No boat travel</li>
+        <li>Easy & comfortable dive</li>
+      </ul>
+
+      <p class="price">
+  Shore Dive – 
+  <span class="original-price">₹3500</span>
+  <span class="discount-price">₹2500</span>
+  <span class="badge">SAVE ₹1000</span>
+      </p>
+<button onclick="openBookingForm('Scuba Shore Dive',prices.shore)">Book Shore Dive</button>
+    </div>
+
+  </div>
+
+
+  <!-- Recommendation -->
+  <div class="card" style="margin-top:40px;background:#eef6ff">
+    <h3>💡 Our Recommendation</h3>
+    <p style="line-height:1.7">
+      👉 <strong>First-time diver?</strong> Choose <strong>Shore Dive</strong><br>
+      👉 <strong>Want more adventure & marine life?</strong> Choose <strong>Boat Dive</strong><br><br>
+      Not sure? <strong>WhatsApp us</strong> and we’ll guide you personally 😊
+    </p>
+  </div>
+  </section>
 
 <div class="header">
 <h1>Scuba Diving in Havelock Island</h1>

@@ -14,37 +14,8 @@
 
 <!-- STYLE -->
 <style>
-
-body{
-  font-family:Arial;
-  margin:0;
-  background:#f4f7fb;
-}
-
-.header{
-  background:#0a3d62;
-  color:white;
-  padding:25px;
-  text-align:center;
-}
-
-.container{
-  max-width:1000px;
-  margin:auto;
-  padding:20px;
-}
-
-.card{
-  background:white;
-  padding:20px;
-  border-radius:12px;
-  margin-bottom:20px;
-  box-shadow:0 4px 15px rgba(0,0,0,0.08);
-}
-
-h1,h2,h3{
-  color:#0a3d62;
-}
+.section{display:none;padding:20px}
+.title{text-align:center;margin-bottom:20px}
 
 .grid{
   display:grid;
@@ -53,64 +24,55 @@ h1,h2,h3{
 }
 
 @media(max-width:768px){
-  .grid{
-    grid-template-columns:1fr;
-  }
+  .grid{grid-template-columns:1fr}
+}
+
+.card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:10px;
 }
 
 .price{
-  font-size:18px;
   margin:10px 0;
 }
 
-.original-price{
+.original{
   text-decoration:line-through;
   color:#888;
-  margin-right:10px;
 }
 
-.discount-price{
-  color:#27ae60;
+.discount{
+  color:green;
   font-weight:bold;
+  margin-left:5px;
 }
 
-.badge{
-  background:#ff4757;
-  color:white;
-  padding:3px 8px;
-  border-radius:5px;
+.save{
+  background:red;
+  color:#fff;
+  padding:3px 6px;
   font-size:12px;
-  margin-left:8px;
+  margin-left:5px;
+  border-radius:5px;
 }
 
-.btn{
-  display:inline-block;
-  background:#25D366;
-  color:white;
-  padding:12px 18px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
+.highlight{
+  background:#eef6ff;
+}
+
+.center{
+  text-align:center;
+}
+
+.urgent{
+  color:red;
   font-weight:bold;
-  text-decoration:none;
-}
-
-.btn-secondary{
-  background:#0a3d62;
-}
-
-.breadcrumb{
-  font-size:14px;
   margin-bottom:10px;
-  color:#555;
 }
 
-.back-btn{
-  margin-bottom:20px;
-  cursor:pointer;
-  color:#0a3d62;
-  font-weight:bold;
-}
 
 </style>
 
@@ -118,134 +80,131 @@ h1,h2,h3{
 
 <body>
 
-<div class="header">
-<h1>Scuba Diving in Havelock Island</h1>
-<p>Choose your perfect dive experience</p>
-</div>
-
-<div class="container">
+<section id="scuba" class="section">
 
 <div class="breadcrumb">
-Home / Services / Scuba Diving
+  <span onclick="showSection('home')">Home</span> /
+  <span onclick="showSection('services')">Services</span> /
+  <span class="current">Scuba Diving</span>
+</div>
+
+<div class="back-btn" onclick="showSection('services')">
+  ← Back to Services
+</div>
+
+<div class="title">
+  <h2>Scuba Diving in Havelock Island</h2>
+  <p>Choose your perfect diving experience</p>
 </div>
 
 <!-- INTRO -->
-<div class="card">
-<h2>Scuba Diving in Havelock</h2>
-<p>
-Experience the underwater beauty of Havelock Island with certified instructors. 
-Perfect for beginners and non-swimmers.
-</p>
+<div class="card highlight">
+  <h3>Experience the Underwater World 🌊</h3>
+  <p>
+    Discover the beauty of coral reefs and marine life with our certified instructors.
+    No swimming skills required — perfect for beginners.
+  </p>
 </div>
 
-<!-- BOAT VS SHORE -->
-<div class="card">
-<h3>Boat Dive vs Shore Dive</h3>
-<p>Choose the experience that suits you best 👇</p>
-</div>
-
+<!-- GRID -->
 <div class="grid">
 
-<!-- BOAT -->
-<div class="card">
-<img src="https://res.cloudinary.com/padi/image/upload/f_auto,q_75,w_auto,dpr_auto/v1749805264/CDN/commerce/60491-1B2C.webp"
-style="width:100%;height:200px;object-fit:cover;border-radius:10px">
+  <!-- BOAT DIVE -->
+  <div class="card">
+    <img src="https://res.cloudinary.com/padi/image/upload/f_auto,q_75,w_auto,dpr_auto/v1749805264/CDN/commerce/60491-1B2C.webp">
 
-<h3>🚤 Boat Dive</h3>
+    <h3>🚤 Boat Dive</h3>
+    <p>Explore deeper waters with better visibility and rich marine life.</p>
 
-<p>Explore deeper waters with rich coral reefs and marine life.</p>
+    <ul>
+      <li>Deeper dive</li>
+      <li>More corals & fish</li>
+      <li>Best experience</li>
+    </ul>
 
-<ul>
-<li>Deeper dive</li>
-<li>More fish & corals</li>
-<li>Best visibility</li>
-</ul>
+    <p class="price">
+      <span class="original">₹5500</span>
+      <span class="discount">₹4000</span>
+      <span class="save">SAVE ₹1500</span>
+    </p>
 
-<p class="price">
-<span class="original-price">₹5500</span>
-<span class="discount-price">₹4000</span>
-<span class="badge">SAVE ₹1500</span>
-</p>
+    <button onclick="openBookingForm('Scuba Boat Dive',4000)">
+      Book Boat Dive
+    </button>
+  </div>
 
-<a class="btn" href="https://wa.me/91XXXXXXXXXX?text=Book Boat Scuba Diving">Book Boat Dive</a>
-</div>
+  <!-- SHORE DIVE -->
+  <div class="card">
+    <img src="https://www.adventurush.com/wp-content/uploads/2023/06/Dive-into-Adventure-1-1024x427.jpg">
 
-<!-- SHORE -->
-<div class="card">
-<img src="https://www.adventurush.com/wp-content/uploads/2023/06/Dive-into-Adventure-1-1024x427.jpg"
-style="width:100%;height:200px;object-fit:cover;border-radius:10px">
+    <h3>🏖 Shore Dive</h3>
+    <p>Perfect for beginners with calm shallow water entry.</p>
 
-<h3>🏖️ Shore Dive</h3>
+    <ul>
+      <li>Beginner friendly</li>
+      <li>No boat needed</li>
+      <li>Easy & safe</li>
+    </ul>
 
-<p>Perfect for beginners with calm and shallow water entry.</p>
+    <p class="price">
+      <span class="original">₹3500</span>
+      <span class="discount">₹2500</span>
+      <span class="save">SAVE ₹1000</span>
+    </p>
 
-<ul>
-<li>Beginner friendly</li>
-<li>No boat needed</li>
-<li>Easy experience</li>
-</ul>
-
-<p class="price">
-<span class="original-price">₹3500</span>
-<span class="discount-price">₹2500</span>
-<span class="badge">SAVE ₹1000</span>
-</p>
-
-<a class="btn" href="https://wa.me/91XXXXXXXXXX?text=Book Shore Scuba Diving">Book Shore Dive</a>
-</div>
+    <button onclick="openBookingForm('Scuba Shore Dive',2500)">
+      Book Shore Dive
+    </button>
+  </div>
 
 </div>
 
 <!-- RECOMMENDATION -->
-<div class="card">
-<h3>💡 Our Recommendation</h3>
-<p>
-👉 First time? Go for <b>Shore Dive</b><br>
-👉 Want adventure? Choose <b>Boat Dive</b>
-</p>
+<div class="card highlight">
+  <h3>💡 Our Recommendation</h3>
+  <p>
+    👉 First time? Choose <b>Shore Dive</b><br>
+    👉 Want adventure? Choose <b>Boat Dive</b>
+  </p>
 </div>
 
 <!-- DETAILS -->
 <div class="card">
-<h2>Details</h2>
-<ul>
-<li>Duration: 30–45 minutes</li>
-<li>Age: 12–50 years</li>
-<li>No swimming required</li>
-</ul>
+  <h3>Activity Details</h3>
+  <ul>
+    <li>Duration: 30–45 minutes</li>
+    <li>Age: 12–50 years</li>
+    <li>No swimming required</li>
+  </ul>
 </div>
 
+<!-- WHY US -->
 <div class="card">
-<h2>Why Choose Us</h2>
-<ul>
-<li>1000+ Happy Customers</li>
-<li>Certified Instructors</li>
-<li>Best Price</li>
-<li>Instant Booking</li>
-</ul>
+  <h3>Why Choose Us</h3>
+  <ul>
+    <li>1000+ Happy Customers</li>
+    <li>Certified Instructors</li>
+    <li>Best Price Guarantee</li>
+    <li>Instant Booking Support</li>
+  </ul>
 </div>
 
+<!-- FAQ -->
 <div class="card">
-<h2>FAQ</h2>
-<p><b>Is it safe?</b> Yes, completely safe.</p>
-<p><b>Need swimming?</b> No.</p>
+  <h3>FAQ</h3>
+  <p><b>Is it safe?</b> Yes, completely safe.</p>
+  <p><b>Need swimming?</b> No.</p>
 </div>
 
-<!-- FINAL CTA -->
-<div class="card" style="text-align:center">
-<a class="btn" href="https://wa.me/91XXXXXXXXXX?text=I want to book scuba diving">
-Book Now on WhatsApp
-</a>
+<!-- CTA -->
+<div class="card center">
+  <p class="urgent">⚠ Limited slots available today</p>
+  <button onclick="openBookingForm('Scuba Diving',2500)">
+    Book Now
+  </button>
 </div>
 
-<!-- LINKS -->
-<div class="card">
-<h3>Explore More Activities</h3>
-<a href="sea-walk-andaman.html">Sea Walk</a><br>
-<a href="parasailing-havelock.html">Parasailing</a>
-</div>
-
-</div>
+</section>
 
 </body>
 </html>
